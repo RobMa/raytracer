@@ -10,9 +10,8 @@ set (Raytracer_VERSION_MAJOR 0)
 set (Raytracer_VERSION_MINOR 1)
 
 # include Eigen3
-find_package (Eigen3 REQUIRED )
-include_directories( ${EIGEN3_INCLUDE_DIR} )
-
+find_package (Eigen3 3.3 REQUIRED NO_MODULE )
+set ( Raytracer_LIBS ${Raytracer_LIBS} Eigen3::Eigen )
 
 # include OpenCV3
 find_package( OpenCV REQUIRED)

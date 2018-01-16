@@ -78,34 +78,42 @@ TriMesh* TriMesh::createPyramid(const SE3 & tf, const Material & m)
 	return obj;	
 }
 
+void getline(std::ifstream& file, std::string& line)
+{
+    std::getline(file, line, '\n');
+    if(line.back() == '\r')
+        line.erase(line.end()-1);
+}
+
 TriMesh * TriMesh::loadFromPly(const char * path, bool reverse_face_normal, const SE3& tf, const Material& m, bool interpolate_normals)
 {
 	std::ifstream file{ path };
 	std::string line;
 
 	// Read Ply header
-	std::getline(file, line);
-	if (line != "ply")
+    getline(file, line);
+    if (line != "ply")
 		return nullptr;
-	std::getline(file, line);
-	if (line != "format ascii 1.0")
+
+    getline(file, line);
+    if (line != "format ascii 1.0")
 		return nullptr;
 	size_t vertex_count = -1, face_count = -1;
 	while (1) {
-		std::getline(file, line);
+        getline(file, line);
 		std::istringstream iss{ line };
 		std::string first;
 		if (!(iss >> first)) {
 			std::cout << "Error 1 reading ply-header" << std::endl;
 			return nullptr;
 		}
-		if (first == "element") {
+        if (first == "element") {
 			std::string second;
 			if (!(iss >> second)) {
 				std::cout << "Error reading second field of 'element'" << std::endl;
 				return nullptr;
 			}
-			if (second == "vertex") {
+            if (second == "vertex") {
 				if (!(iss >> vertex_count)) {
 					std::cout << "Error 2 reading ply-header (vertex count)" << std::endl;
 					return nullptr;
@@ -141,7 +149,7 @@ TriMesh * TriMesh::loadFromPly(const char * path, bool reverse_face_normal, cons
 
 	// Read Vertices
 	for (int i = 0; i < tm->vertices_.size(); i++) {
-		std::getline(file, line);
+        getline(file, line);
 		std::istringstream iss{ line };
 		int face_order[3] = { 0,1,2 };
 		if (reverse_face_normal) {
@@ -158,7 +166,7 @@ TriMesh * TriMesh::loadFromPly(const char * path, bool reverse_face_normal, cons
 
 	// Read Faces
 	for (int i = 0; i < tm->faces_.size(); i++) {
-		std::getline(file, line);
+        getline(file, line);
 		std::istringstream iss{ line };
 		int poly_number;
 		bool err = !(iss >> poly_number >> tm->faces_[i][0] >> tm->faces_[i][1] >> tm->faces_[i][2]);

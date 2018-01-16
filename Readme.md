@@ -14,7 +14,7 @@ For the steps below the system needs to have `cmake` installed.
 For example if you build OpenCV from source under Windows with Visual Studio that path is `$(Path-to-OpenCV-folder)/build/install`.
 Under Windows also make sure the OpenCV-binaries are found in the PATH environment variable.
 If you build from source this may be for example: `$(Path-to-OpenCV-folder)/build/install/x64/vc14/bin`.
-2. Install *Eigen3* with cmake. Instructions for Windows, see below. 
+2. Install *Eigen3* with cmake. [Instructions for Windows, see below](#install-eigen-with-cmake-on-windows). 
 3. Clone the repository and cd into it.
 4. Create a build folder:  
 ```

@@ -1,5 +1,9 @@
 cmake_minimum_required (VERSION 3.0)
 project (Raytracer)
+set (CMAKE_CXX_STANDARD 11)
+set(THREADS_PREFER_PTHREAD_FLAG ON)
+find_package(Threads REQUIRED)
+
 # The version number
 set (Raytracer_VERSION_MAJOR 0)
 set (Raytracer_VERSION_MINOR 1)
@@ -7,7 +11,8 @@ set (Raytracer_VERSION_MINOR 1)
 # include Eigen3
 #set (EIGEN3_INCLUDE_DIR "${PROJECT_SOURCE_DIR}/3rdparty/eigen")
 #include_directories ( "${EIGEN3_INCLUDE_DIR}" )
-find_package (Eigen3 3.3 REQUIRED NO_MODULE)
+find_package (Eigen3 REQUIRED )
+INCLUDE_DIRECTORIES( ${EIGEN3_INCLUDE_DIR} )
 
 # include OpenCV3
 find_package( OpenCV REQUIRED)
@@ -24,6 +29,6 @@ add_executable(Raytracer    main.cpp
                             sceneobject.cpp
                             trimesh.cpp )
 
-target_link_libraries( Raytracer ${OpenCV_LIBS} Eigen3::Eigen)
+target_link_libraries( Raytracer ${OpenCV_LIBS} Threads::Threads )
 
 

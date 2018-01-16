@@ -1,12 +1,19 @@
 # A basic raytracing rendering program
 This is a basic raytracing program written in C++11 as a homework assignment for the **Computer Animation and Data Visualization** course at Shanghai Jiao Tong University, Fall semester 2017. [Link to the course](http://www.cs.sjtu.edu.cn/~shengbin/course/datavis/index.htm)
 
-Its dependencies are *OpenCV* (Version 3.31) for displaying and saving images, *Eigen* (Version 3.34), a template library for Linear Algebra and *cmake* as build system.
 The program only takes the scene geometry, light, materials and camera pose as an input to generate a photorealistic image of the scene using the raytracing algorithm.
+![Final scene](images/final_result.png)
+This is the result of a complex scene including the **Stanford bunny** with normal interpolation, a bottle of ketchup and 4 reflective spheres.
+More examples can be found in the `images/` subfolder.
+
 
 ## How to build the project
-The system needs to have `cmake` installed.
-1. Install OpenCV3. Commonly OpenCV will be linked dynamically. Make sure the Environment variable OpenCV_Dir is set. For example if you build OpenCV from source under Windows with Visual Studio that path is $(Path-to-OpenCV-folder)/build/install. Under Windows also make sure the OpenCV-binaries are found in the PATH environment variable. If you build from source this may be for example: $(Path-to-OpenCV-folder)/build/install/x64/vc14/bin.
+Its dependencies are *OpenCV* (Version 3.31) for displaying and saving images, *Eigen* (Version 3.34), a template library for Linear Algebra and *cmake* as build system.
+For the steps below the system needs to have `cmake` installed.
+1. Install OpenCV3. Commonly OpenCV will be linked dynamically. Make sure the Environment variable OpenCV_Dir is set.
+For example if you build OpenCV from source under Windows with Visual Studio that path is `$(Path-to-OpenCV-folder)/build/install`.
+Under Windows also make sure the OpenCV-binaries are found in the PATH environment variable.
+If you build from source this may be for example: `$(Path-to-OpenCV-folder)/build/install/x64/vc14/bin`.
 2. Install *Eigen3* with cmake. Instructions for Windows, see below. 
 3. Clone the repository and cd into it.
 4. Create a build folder:  
@@ -61,7 +68,7 @@ cmake -DCMAKE_INSTALL_PREFIX="%cd%\install"
 ```
 5. Install
 ```
-cmake --build . --target=INSTALL
+cmake --build . --target INSTALL
 ```
 6. Add to path to environment variables
 ```
@@ -117,9 +124,3 @@ The *TriMesh*-class represents a mesh of triangle surfaces.
 It supports importing complex objects from *Stanford-PLY* files using the static *loadFromPly()* function.
 After loading an object, the function calculates all the normals necessary to perform **Phong normal interpolation** quickly during the rendering step.
 In order to accelerate rendering a bounding box is calculated for each object. Hence the time-intensive calculation of an (impossible) intersection for all the triangles is avoided.
-
-## Results
-![Final scene](images/final_result.png)
-
-This is the result of a complex scene including the **Stanford bunny** with normal interpolation, a bottle of ketchup and 4 reflective spheres.
-More examples can be found in the `images/` subfolder.

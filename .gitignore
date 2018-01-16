@@ -1,0 +1,12 @@
+# Build folders
+build
+build-*
+
+# Models
+models/*
+!models/.gitkeep
+
+# IDE files
+.vs
+.vscode
+*.user
